@@ -45,11 +45,13 @@
       margin-top: 40px;
       font-size: 2rem;
       font-weight: 700;
-      color: #4F46E5;
+      color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
+      position: relative;
+      z-index: 1;
     }
 
     .btn {
@@ -69,6 +71,34 @@
     }
 
     /* ✅ Skills Section */
+    .skills-section {
+      position: relative;
+      padding: 60px 20px;
+      border-radius: 20px;
+      margin-top: 40px;
+      overflow: hidden;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .skills-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1527443224154-d7b1f6f20a3d?auto=format&fit=crop&w=1600&q=80') 
+                  no-repeat center center / cover;
+      z-index: -2;
+    }
+
+    .skills-section::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(79,70,229,0.75); /* purple overlay */
+      z-index: -1;
+    }
+
     .skills {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -77,21 +107,23 @@
       max-width: 900px;
       margin-left: auto;
       margin-right: auto;
+      position: relative;
+      z-index: 1;
     }
 
     .skill-card {
       backdrop-filter: blur(15px);
-      background: rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.85);
       border: 1px solid rgba(200, 200, 200, 0.3);
       border-radius: 20px;
       padding: 25px 15px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .skill-card:hover {
       transform: scale(1.08) rotate(2deg);
-      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.2);
     }
 
     .skill-card img {
@@ -137,29 +169,31 @@
     <a class="btn" href="https://github.com/Sibtain-maker" target="_blank">🚀 Visit my GitHub Projects</a>
 
     <!-- ✅ Skills Section -->
-    <h3>🚀 Skills</h3>
-    <div class="skills">
-      <div class="skill-card">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="Flutter">
-        <p>Flutter</p>
+    <section class="skills-section">
+      <h3>🚀 Skills</h3>
+      <div class="skills">
+        <div class="skill-card">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="Flutter">
+          <p>Flutter</p>
+        </div>
+        <div class="skill-card">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg" alt="Dart">
+          <p>Dart</p>
+        </div>
+        <div class="skill-card">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase">
+          <p>Firebase</p>
+        </div>
+        <div class="skill-card">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" alt="Supabase">
+          <p>Supabase</p>
+        </div>
+        <div class="skill-card">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
+          <p>Git</p>
+        </div>
       </div>
-      <div class="skill-card">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg" alt="Dart">
-        <p>Dart</p>
-      </div>
-      <div class="skill-card">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase">
-        <p>Firebase</p>
-      </div>
-      <div class="skill-card">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" alt="Supabase">
-        <p>Supabase</p>
-      </div>
-      <div class="skill-card">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
-        <p>Git</p>
-      </div>
-    </div>
+    </section>
   </main>
 
   <!-- ✅ Footer -->
