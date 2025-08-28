@@ -1,1317 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M Sibtain Zahid - Flutter Developer</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            --secondary-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --dark-gradient: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
-            --neon-blue: #00f5ff;
-            --neon-purple: #bf00ff;
-            --neon-pink: #ff0080;
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: #fff;
-            background: var(--dark-gradient);
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* Animated Background */
-        .background-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: var(--neon-blue);
-            border-radius: 50%;
-            animation: float 6s infinite linear;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        .geometric-shapes {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-
-        .shape {
-            position: absolute;
-            border: 1px solid rgba(0, 245, 255, 0.3);
-            animation: rotate 20s infinite linear;
-        }
-
-        .shape:nth-child(1) {
-            width: 200px;
-            height: 200px;
-            top: 10%;
-            right: 10%;
-            animation-delay: 0s;
-        }
-
-        .shape:nth-child(2) {
-            width: 150px;
-            height: 150px;
-            bottom: 20%;
-            left: 15%;
-            animation-delay: -5s;
-            border-radius: 50%;
-        }
-
-        .shape:nth-child(3) {
-            width: 100px;
-            height: 100px;
-            top: 50%;
-            right: 30%;
-            animation-delay: -10s;
-            transform: rotate(45deg);
-        }
-
-        @keyframes rotate {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Header */
-        .header {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border-radius: 30px;
-            padding: 60px 40px;
-            text-align: center;
-            margin-bottom: 40px;
-            box-shadow: 
-                0 0 60px rgba(0, 245, 255, 0.3),
-                inset 0 0 60px rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--glass-border);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(
-                from 0deg,
-                transparent 0deg,
-                var(--neon-blue) 90deg,
-                transparent 180deg,
-                var(--neon-purple) 270deg,
-                transparent 360deg
-            );
-            animation: headerRotate 10s linear infinite;
-            opacity: 0.1;
-        }
-
-        @keyframes headerRotate {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .profile-container {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 30px;
-        }
-
-        .profile-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: var(--primary-gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-            font-size: 60px;
-            color: white;
-            position: relative;
-            z-index: 2;
-            animation: profilePulse 3s ease-in-out infinite;
-        }
-
-        .profile-ring {
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            width: 170px;
-            height: 170px;
-            border: 2px solid transparent;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--neon-blue), var(--neon-purple), var(--neon-pink)) border-box;
-            mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-            mask-composite: subtract;
-            animation: ringRotate 4s linear infinite;
-        }
-
-        @keyframes profilePulse {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
-            }
-            50% {
-                transform: scale(1.05);
-                box-shadow: 0 0 50px rgba(191, 0, 255, 0.7);
-            }
-        }
-
-        @keyframes ringRotate {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .header h1 {
-            font-family: 'Orbitron', monospace;
-            font-size: 4rem;
-            margin-bottom: 15px;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            position: relative;
-            z-index: 2;
-            animation: textGlow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes textGlow {
-            from {
-                text-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
-            }
-            to {
-                text-shadow: 0 0 40px rgba(191, 0, 255, 0.8);
-            }
-        }
-
-        .header .subtitle {
-            font-size: 1.5rem;
-            color: var(--neon-blue);
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 2;
-            font-weight: 300;
-            letter-spacing: 2px;
-        }
-
-        .header .tagline {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.8);
-            max-width: 700px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-            line-height: 1.8;
-        }
-
-        /* Navigation */
-        .nav {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border-radius: 25px;
-            padding: 25px;
-            margin-bottom: 40px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            box-shadow: 0 0 40px rgba(0, 245, 255, 0.2);
-            border: 1px solid var(--glass-border);
-        }
-
-        .nav-item {
-            padding: 15px 30px;
-            background: var(--primary-gradient);
-            color: white;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: 600;
-            transition: all 0.4s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: all 0.6s ease;
-        }
-
-        .nav-item:hover::before {
-            left: 100%;
-        }
-
-        .nav-item:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 0 30px rgba(0, 245, 255, 0.6);
-        }
-
-        /* Content Grid */
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-
-        .card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border-radius: 25px;
-            padding: 30px;
-            box-shadow: 
-                0 0 40px rgba(0, 245, 255, 0.2),
-                inset 0 0 40px rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--primary-gradient);
-            transform: translateX(-100%);
-            transition: transform 0.6s ease;
-        }
-
-        .card:hover::before {
-            transform: translateX(0);
-        }
-
-        .card:hover {
-            transform: translateY(-10px) rotateX(5deg);
-            box-shadow: 
-                0 0 60px rgba(0, 245, 255, 0.4),
-                0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .card h3 {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.6rem;
-            margin-bottom: 20px;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .card-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            background: var(--secondary-gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 20px;
-            box-shadow: 0 0 20px rgba(79, 172, 254, 0.5);
-            animation: iconFloat 3s ease-in-out infinite;
-        }
-
-        @keyframes iconFloat {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-5px);
-            }
-        }
-
-        /* Skills */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 15px;
-            margin-top: 25px;
-        }
-
-        .skill-item {
-            background: var(--secondary-gradient);
-            color: white;
-            padding: 20px 15px;
-            border-radius: 15px;
-            text-align: center;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .skill-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--primary-gradient);
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-
-        .skill-item:hover::before {
-            opacity: 1;
-        }
-
-        .skill-item:hover {
-            transform: scale(1.1) rotateZ(5deg);
-            box-shadow: 0 0 25px rgba(79, 172, 254, 0.6);
-        }
-
-        .skill-item span {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Services */
-        .service-item {
-            padding: 18px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .service-item:last-child {
-            border-bottom: none;
-        }
-
-        .service-item:hover {
-            transform: translateX(10px);
-            background: rgba(0, 245, 255, 0.1);
-            padding-left: 20px;
-            border-radius: 10px;
-        }
-
-        .service-item h4 {
-            color: var(--neon-blue);
-            font-size: 1.1rem;
-            margin-bottom: 6px;
-            font-weight: 600;
-        }
-
-        .service-item p {
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.5;
-            font-size: 0.9rem;
-        }
-
-        /* Stats */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-            margin-top: 25px;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 25px;
-            background: var(--glass-bg);
-            border-radius: 20px;
-            border: 1px solid rgba(0, 245, 255, 0.3);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .stat-item:hover {
-            background: rgba(0, 245, 255, 0.1);
-            transform: scale(1.05);
-            box-shadow: 0 0 25px rgba(0, 245, 255, 0.4);
-        }
-
-        .stat-number {
-            font-family: 'Orbitron', monospace;
-            font-size: 3rem;
-            font-weight: bold;
-            color: var(--neon-blue);
-            margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
-        }
-
-        .stat-label {
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: 500;
-            font-size: 1.1rem;
-        }
-
-        /* Contact */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 25px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px;
-            background: var(--glass-bg);
-            border-radius: 15px;
-            text-decoration: none;
-            color: #fff;
-            transition: all 0.4s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contact-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--secondary-gradient);
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-
-        .contact-item:hover::before {
-            opacity: 0.1;
-        }
-
-        .contact-item:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 0 30px rgba(79, 172, 254, 0.4);
-        }
-
-        .contact-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            background: var(--secondary-gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
-            position: relative;
-            z-index: 1;
-            box-shadow: 0 0 15px rgba(79, 172, 254, 0.5);
-        }
-
-        .contact-info {
-            position: relative;
-            z-index: 1;
-        }
-
-        .contact-info strong {
-            font-size: 1rem;
-            color: var(--neon-blue);
-            display: block;
-            margin-bottom: 2px;
-        }
-
-        .contact-info div {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        /* CTA Section */
-        .cta {
-            background: var(--primary-gradient);
-            color: white;
-            text-align: center;
-            padding: 80px 40px;
-            border-radius: 30px;
-            margin-top: 40px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
-            background-size: 50px 50px;
-            animation: backgroundMove 20s linear infinite;
-            opacity: 0.3;
-        }
-
-        @keyframes backgroundMove {
-            0% {
-                transform: translateX(0) translateY(0);
-            }
-            100% {
-                transform: translateX(50px) translateY(50px);
-            }
-        }
-
-        .cta h2 {
-            font-family: 'Orbitron', monospace;
-            font-size: 3rem;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .cta p {
-            font-size: 1.3rem;
-            margin-bottom: 40px;
-            opacity: 0.9;
-            position: relative;
-            z-index: 1;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 20px 50px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.2rem;
-            transition: all 0.4s ease;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: all 0.6s ease;
-        }
-
-        .cta-button:hover::before {
-            left: 100%;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 0 40px rgba(255, 255, 255, 0.4);
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(15px);
-        }
-
-        .modal-content {
-            background: var(--glass-bg);
-            backdrop-filter: blur(30px);
-            margin: 5% auto;
-            padding: 50px;
-            border-radius: 30px;
-            width: 90%;
-            max-width: 600px;
-            text-align: center;
-            box-shadow: 
-                0 0 60px rgba(0, 245, 255, 0.4),
-                inset 0 0 60px rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--glass-border);
-            position: relative;
-            animation: modalSlideIn 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
-            color: white;
-        }
-
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-100px) scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .close {
-            position: absolute;
-            right: 25px;
-            top: 25px;
-            font-size: 35px;
-            font-weight: bold;
-            color: var(--neon-blue);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(0, 245, 255, 0.1);
-        }
-
-        .close:hover {
-            background: rgba(0, 245, 255, 0.2);
-            transform: rotate(180deg) scale(1.1);
-        }
-
-        .modal-icon {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: var(--secondary-gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 30px;
-            font-size: 45px;
-            color: white;
-            box-shadow: 0 0 40px rgba(79, 172, 254, 0.5);
-            animation: modalIconPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes modalIconPulse {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow: 0 0 40px rgba(79, 172, 254, 0.5);
-            }
-            50% {
-                transform: scale(1.05);
-                box-shadow: 0 0 60px rgba(79, 172, 254, 0.8);
-            }
-        }
-
-        .modal h2 {
-            font-family: 'Orbitron', monospace;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--neon-blue);
-        }
-
-        .modal p {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 35px;
-            line-height: 1.7;
-        }
-
-        .modal-email {
-            background: var(--primary-gradient);
-            color: white;
-            padding: 20px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.2rem;
-            display: inline-block;
-            transition: all 0.4s ease;
-            box-shadow: 0 0 30px rgba(102, 126, 234, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .modal-email::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: all 0.6s ease;
-        }
-
-        .modal-email:hover::before {
-            left: 100%;
-        }
-
-        .modal-email:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 0 50px rgba(102, 126, 234, 0.6);
-            color: white;
-            text-decoration: none;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2.5rem;
-            }
-            
-            .content-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .cta h2 {
-                font-size: 2rem;
-            }
-
-            .modal-content {
-                margin: 10% auto;
-                padding: 40px 30px;
-            }
-
-            .modal h2 {
-                font-size: 2rem;
-            }
-
-            .nav {
-                gap: 15px;
-            }
-
-            .nav-item {
-                padding: 12px 20px;
-                font-size: 0.9rem;
-            }
-        }
-
-        /* Loading Animation */
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--dark-gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            opacity: 1;
-            transition: opacity 0.5s ease;
-        }
-
-        .loading-screen.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .loader {
-            width: 80px;
-            height: 80px;
-            border: 3px solid transparent;
-            border-top: 3px solid var(--neon-blue);
-            border-right: 3px solid var(--neon-purple);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Scroll Animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio</title>
+  <style>
+    /* Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: Arial, sans-serif;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* Particle background */
+    #particles-js {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+    }
+
+    /* Glassmorphism */
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 2rem;
+      margin: 2rem;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    /* Fade-in effect */
+    .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* Header */
+    header {
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+
+    h1 { font-size: 2.5rem; }
+    p { margin-top: 1rem; font-size: 1.2rem; }
+
+    /* Sections */
+    section { min-height: 60vh; display: flex; justify-content: center; align-items: center; }
+
+    /* Loading screen */
+    #loading {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: #000;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      font-size: 2rem;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1001;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      justify-content: center; align-items: center;
+    }
+
+    .modal-content {
+      background: #222;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .modal-content span {
+      cursor: pointer;
+      color: #fff;
+      float: right;
+      font-size: 1.5rem;
+    }
+  </style>
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loader"></div>
+  <!-- Loading Screen -->
+  <div id="loading">Loading...</div>
+
+  <!-- Particle Background -->
+  <div id="particles-js"></div>
+
+  <!-- Header -->
+  <header class="fade-in">
+    <h1>My Portfolio</h1>
+    <p>Frontend Developer | UI/UX Enthusiast</p>
+  </header>
+
+  <!-- About Section -->
+  <section class="glass fade-in">
+    <div>
+      <h2>About Me</h2>
+      <p>Hello! I am a passionate developer who loves creating modern, responsive, and interactive websites.</p>
     </div>
+  </section>
 
-    <!-- Animated Background -->
-    <div class="background-animation">
-        <div class="geometric-shapes">
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-        </div>
+  <!-- Projects Section -->
+  <section class="glass fade-in">
+    <div>
+      <h2>Projects</h2>
+      <p>Check out some of my projects below.</p>
+      <button onclick="openModal()">View Project</button>
     </div>
+  </section>
 
-    <div class="container">
-        <!-- Header Section -->
-        <header class="header fade-in">
-            <div class="profile-container">
-                <div class="profile-ring"></div>
-                <div class="profile-img">
-                    <i class="fas fa-mobile-alt"></i>
-                </div>
-            </div>
-            <h1>M Sibtain Zahid</h1>
-            <p class="subtitle">Senior Flutter Developer & Mobile App Specialist</p>
-            <p class="tagline">Transforming ideas into beautiful, high-performance mobile applications with Flutter, Firebase, and cutting-edge technologies</p>
-        </header>
-
-        <!-- Navigation -->
-        <nav class="nav fade-in">
-            <a href="#services" class="nav-item">
-                <i class="fas fa-rocket"></i>
-                Services
-            </a>
-            <a href="#skills" class="nav-item">
-                <i class="fas fa-code"></i>
-                Skills
-            </a>
-            <a href="#stats" class="nav-item">
-                <i class="fas fa-chart-line"></i>
-                Stats
-            </a>
-            <a href="#contact" class="nav-item">
-                <i class="fas fa-envelope"></i>
-                Contact
-            </a>
-        </nav>
-
-        <!-- Content Grid -->
-        <div class="content-grid">
-            <!-- Services Card -->
-            <div class="card fade-in" id="services">
-                <h3>
-                    <div class="card-icon"><i class="fas fa-rocket"></i></div>
-                    My Services
-                </h3>
-                <div class="service-item">
-                    <h4>Custom Flutter App Development</h4>
-                    <p>End-to-end mobile app development for iOS and Android using Flutter framework</p>
-                </div>
-                <div class="service-item">
-                    <h4>Firebase Integration</h4>
-                    <p>Complete backend solutions with authentication, database, and cloud functions</p>
-                </div>
-                <div class="service-item">
-                    <h4>Supabase Development</h4>
-                    <p>Modern backend-as-a-service implementation with real-time features</p>
-                </div>
-                <div class="service-item">
-                    <h4>App Store Deployment</h4>
-                    <p>Professional app publishing and optimization for both Play Store and App Store</p>
-                </div>
-                <div class="service-item">
-                    <h4>UI/UX Design Implementation</h4>
-                    <p>Converting designs into pixel-perfect, responsive mobile interfaces</p>
-                </div>
-            </div>
-
-            <!-- Skills Card -->
-            <div class="card fade-in" id="skills">
-                <h3>
-                    <div class="card-icon"><i class="fas fa-code"></i></div>
-                    Technical Skills
-                </h3>
-                <div class="skills-grid">
-                    <div class="skill-item"><span>Flutter</span></div>
-                    <div class="skill-item"><span>Dart</span></div>
-                    <div class="skill-item"><span>Firebase</span></div>
-                    <div class="skill-item"><span>Supabase</span></div>
-                    <div class="skill-item"><span>Git</span></div>
-                    <div class="skill-item"><span>REST APIs</span></div>
-                    <div class="skill-item"><span>State Management</span></div>
-                    <div class="skill-item"><span>Material Design</span></div>
-                    <div class="skill-item"><span>iOS Development</span></div>
-                    <div class="skill-item"><span>Android Development</span></div>
-                </div>
-            </div>
-
-            <!-- Stats Card -->
-            <div class="card fade-in" id="stats">
-                <h3>
-                    <div class="card-icon"><i class="fas fa-chart-line"></i></div>
-                    My Track Record
-                </h3>
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div class="stat-number">50+</div>
-                        <div class="stat-label">Apps Delivered</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">100%</div>
-                        <div class="stat-label">Client Satisfaction</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">2+</div>
-                        <div class="stat-label">Years Experience</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">24/7</div>
-                        <div class="stat-label">Support</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Contact Card -->
-            <div class="card fade-in" id="contact">
-                <h3>
-                    <div class="card-icon"><i class="fas fa-envelope"></i></div>
-                    Get In Touch
-                </h3>
-                <div class="contact-grid">
-                    <a href="https://github.com/Sibtain-maker" class="contact-item" target="_blank">
-                        <div class="contact-icon"><i class="fab fa-github"></i></div>
-                        <div class="contact-info">
-                            <strong>GitHub</strong>
-                            <div>View My Projects</div>
-                        </div>
-                    </a>
-                    <a href="mailto:msibtain1236@gmail.com" class="contact-item">
-                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                        <div class="contact-info">
-                            <strong>Email</strong>
-                            <div>msibtain1236@gmail.com</div>
-                        </div>
-                    </a>
-                    <a href="https://www.linkedin.com/in/sibtainzahid/" class="contact-item" target="_blank">
-                        <div class="contact-icon"><i class="fab fa-linkedin"></i></div>
-                        <div class="contact-info">
-                            <strong>LinkedIn</strong>
-                            <div>Professional Network</div>
-                        </div>
-                    </a>
-                    <a href="https://wa.me/923093612268" class="contact-item" target="_blank">
-                        <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
-                        <div class="contact-info">
-                            <strong>WhatsApp</strong>
-                            <div>Quick Chat</div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Call to Action -->
-        <section class="cta fade-in">
-            <h2>Ready to Build Your Dream App?</h2>
-            <p>Let's transform your innovative ideas into powerful mobile applications that users love!</p>
-            <a href="#" class="cta-button" onclick="openModal()">
-                <i class="fas fa-rocket"></i> Start Your Project Today
-            </a>
-        </section>
+  <!-- Contact Section -->
+  <section class="glass fade-in">
+    <div>
+      <h2>Contact</h2>
+      <p>Get in touch via email: <strong>me@example.com</strong></p>
     </div>
+  </section>
 
-    <!-- Modal -->
-    <div id="projectModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <div class="modal-icon">
-                <i class="fas fa-rocket"></i>
-            </div>
-            <h2>Let's Start Your Project!</h2>
-            <p>Ready to bring your app idea to life? I'm excited to work with you! Send me an email with your project details and let's discuss how we can create something amazing together.</p>
-            <a href="mailto:msibtain1236@gmail.com?subject=New%20Project%20Inquiry&body=Hi%20Sibtain,%0A%0AI'm%20interested%20in%20developing%20a%20mobile%20app.%20Here%20are%20my%20project%20details:%0A%0A[Please%20describe%20your%20app%20idea]%0A%0ATarget%20Platform:%20[iOS/Android/Both]%0ABudget:%20[Your%20budget%20range]%0ATimeline:%20[Expected%20completion%20time]%0A%0ALooking%20forward%20to%20hearing%20from%20you!%0A%0ABest%20regards" class="modal-email">
-                <i class="fas fa-envelope"></i> Contact Me via Email
-            </a>
-        </div>
+  <!-- Modal -->
+  <div id="projectModal" class="modal">
+    <div class="modal-content">
+      <span onclick="closeModal()">&times;</span>
+      <h2>Project Details</h2>
+      <p>This is where the project details will go.</p>
     </div>
+  </div>
 
-    <script>
-        // Loading Screen
-        window.addEventListener('load', function() {
-            setTimeout(() => {
-                document.getElementById('loadingScreen').classList.add('hidden');
-                createParticles();
-                initScrollAnimations();
-            }, 1500);
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+  <script>
+    // Particle.js config
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 100 },
+        "size": { "value": 3 },
+        "move": { "speed": 2 },
+        "line_linked": { "enable": true, "distance": 150, "color": "#ffffff" }
+      }
+    });
+
+    // Loading screen
+    window.addEventListener("load", () => {
+      document.getElementById("loading").style.display = "none";
+    });
+
+    // Scroll animations
+    function initScrollAnimations() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
         });
+      }, { threshold: 0.1 });
 
-        // Create floating particles
-        function createParticles() {
-            const particleContainer = document.querySelector('.background-animation');
-            const particleCount = 50;
+      document.querySelectorAll('.fade-in').forEach(el => {
+        observer.observe(el);
+      });
+    }
+    initScrollAnimations();
 
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 6 + 's';
-                particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
-                
-                // Random colors
-                const colors = ['#00f5ff', '#bf00ff', '#ff0080', '#4facfe'];
-                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-                
-                particleContainer.appendChild(particle);
-            }
-        }
-
-        // Scroll animations
-        function initScrollAnimations() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            document.querySelectorAll('.fade-in').forEach(el => {
-                observer.observe(el);
-            });
-        }
-
-        // Modal functionality
-        function openModal() {
-            document.getElementById('projectModal').style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            document.getElementById('projectModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('projectModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        }
-
-        // Close modal with Escape key
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                closeModal();
-            }
-        });
-
-        // Smooth scrolling for navigation
-        document.querySelectorAll('.nav-item').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                const targetElement = document.getElementById(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Enhanced hover effects for cards
-        document.querySelectorAll('.card').forEach(card => {
-            card.addEventListener('mousemove', function(e) {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateX = (y - centerY) / 10;
-                const rotateY = (centerX - x) / 10;
-                
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
-            });
-        });
-
-        // Counter animation for stats
-        function animateCounters() {
-            const counters = document.querySelectorAll('.stat-number');
-            counters.forEach(counter => {
-                const target = parseInt(counter.textContent.replace(/\D/g, ''));
-                const suffix = counter.textContent.replace(/\d/g, '');
-                let current = 0;
-                const increment = target / 60;
-                
-                const timer = setInterval(() => {
-                    current += increment;
-                    if (current >= target) {
-                        current = target;
-                        clearInterval(timer);
-                    }
-                    counter.textContent = Math.floor(current) + suffix;
-                }, 30);
-            });
-        }
-
-        // Trigger counter animation when stats section is visible
-        const statsObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateCounters();
-                    statsObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        window.addEventListener('load', () => {
-            const statsCard = document.getElementById('stats');
-            if (statsCard) {
-                statsObserver.observe(statsCard);
-            }
-        });
-
-        // Dynamic cursor effect
-        document.addEventListener('mousemove', function(e) {
-            const cursor = document.querySelector('.cursor');
-            if (!cursor) {
-                const newCursor = document.createElement('div');
-                newCursor.className = 'cursor';
-                newCursor.style.cssText = `
-                    position: fixed;
-                    width: 20px;
-                    height: 20px;
-                    background: radial-gradient(circle, rgba(0,245,255,0.8) 0%, transparent 70%);
-                    border-radius: 50%;
-                    pointer-events: none;
-                    z-index: 9999;
-                    mix-blend-mode: screen;
-                    transition: transform 0.1s ease;
-                `;
-                document.body.appendChild(newCursor);
-            }
-            
-            const cursorEl = document.querySelector('.cursor');
-            cursorEl.style.left = e.clientX - 10 + 'px';
-            cursorEl.style.top = e.clientY - 10 + 'px';
-        });
-
-        // Add glow effect to interactive elements
-        document.querySelectorAll('a, button, .skill-item, .stat-item').forEach(el => {
-            el.addEventListener('mouseenter', function() {
-                this.style.boxShadow = '0 0 30px rgba(0, 245, 255, 0.5)';
-            });
-            
-            el.addEventListener('mouseleave', function() {
-                this.style.boxShadow = '';
-            });
-        });
-
-        // Parallax effect for header
-        window.addEventListener('scroll', function() {
-            const scrolled = window.pageYOffset;
-            const header = document.querySelector('.header');
-            if (header) {
-                header.style.transform = `translateY(${scrolled * 0.1}px)`;
-            }
-        });
-
-        // Add typing effect to tagline
-        function typeWriter(element, text, speed = 50) {
-            let i = 0;
-            element.innerHTML = '';
-            
-            function type() {
-                if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(type, speed);
-                }
-            }
-            type();
-        }
-
-        // Initialize typing effect after loading
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const tagline = document.querySelector('.tagline');
-                if (tagline) {
-                    const originalText = tagline.textContent;
-                    typeWriter(tagline, originalText, 30);
-                }
-            }, 2000);
-        });
-    </script>
+    // Modal functions
+    function openModal() {
+      document.getElementById("projectModal").style.display = "flex";
+    }
+    function closeModal() {
+      document.getElementById("projectModal").style.display = "none";
+    }
+    window.onclick = function(event) {
+      const modal = document.getElementById("projectModal");
+      if (event.target === modal) closeModal();
+    }
+  </script>
 </body>
 </html>
