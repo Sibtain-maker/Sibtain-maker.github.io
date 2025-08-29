@@ -3,11 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio</title>
+  <title>M Sibtain Zahid - Portfolio</title>
   <style>
-    /* Reset */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body {
       font-family: Arial, sans-serif;
       color: #fff;
@@ -20,16 +18,17 @@
       top: 0; left: 0;
       width: 100%; height: 100%;
       z-index: -1;
+      background: #0d1117;
     }
 
     /* Glassmorphism */
     .glass {
       background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
       border-radius: 15px;
       padding: 2rem;
       margin: 2rem;
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
       animation: fadeIn 1s ease-in-out;
     }
 
@@ -37,103 +36,95 @@
     .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-    /* Header */
     header {
       text-align: center;
-      padding: 3rem 1rem;
+      padding: 4rem 1rem;
     }
+    header h1 { font-size: 2.5rem; }
+    header p { margin-top: 1rem; font-size: 1.2rem; color: #ddd; }
 
-    h1 { font-size: 2.5rem; }
-    p { margin-top: 1rem; font-size: 1.2rem; }
+    section h2 { font-size: 1.8rem; margin-bottom: 1rem; }
 
-    /* Sections */
-    section { min-height: 60vh; display: flex; justify-content: center; align-items: center; }
-
-    /* Loading screen */
-    #loading {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: #000;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      font-size: 2rem;
+    /* Project cards */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
     }
-
-    /* Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1001;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.8);
-      justify-content: center; align-items: center;
-    }
-
-    .modal-content {
-      background: #222;
-      padding: 20px;
-      border-radius: 10px;
+    .project-card {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 1rem;
+      border-radius: 12px;
       text-align: center;
+      transition: transform 0.3s;
+    }
+    .project-card:hover { transform: translateY(-5px); }
+    .project-card a {
+      display: inline-block;
+      margin-top: 0.5rem;
+      color: #00d4ff;
+      text-decoration: none;
     }
 
-    .modal-content span {
-      cursor: pointer;
-      color: #fff;
-      float: right;
-      font-size: 1.5rem;
+    /* Contact links */
+    .contact a {
+      color: #00d4ff;
+      text-decoration: none;
+      display: block;
+      margin: 0.3rem 0;
     }
   </style>
 </head>
 <body>
-  <!-- Loading Screen -->
-  <div id="loading">Loading...</div>
-
   <!-- Particle Background -->
   <div id="particles-js"></div>
 
   <!-- Header -->
   <header class="fade-in">
-    <h1>My Portfolio</h1>
-    <p>Frontend Developer | UI/UX Enthusiast</p>
+    <h1>M Sibtain Zahid</h1>
+    <p>Flutter Developer | CS Student at UOL | Firebase & AI Enthusiast</p>
   </header>
 
-  <!-- About Section -->
+  <!-- About -->
   <section class="glass fade-in">
-    <div>
-      <h2>About Me</h2>
-      <p>Hello! I am a passionate developer who loves creating modern, responsive, and interactive websites.</p>
+    <h2>About Me</h2>
+    <p>
+      Hi, I'm <strong>M Sibtain Zahid</strong>, a Flutter developer from Lahore, Pakistan.  
+      I specialize in building modern mobile apps with Flutter, Firebase, and Supabase.  
+      Currently studying Computer Science at the University of Lahore.
+    </p>
+  </section>
+
+  <!-- Projects -->
+  <section class="glass fade-in">
+    <h2>Projects</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <h3>🍔 Food Delivery App</h3>
+        <p>Flutter app with Firebase backend for real-time orders.</p>
+        <a href="#">View Project</a>
+      </div>
+      <div class="project-card">
+        <h3>🛒 E-Commerce App</h3>
+        <p>Modern shopping app built with Supabase authentication.</p>
+        <a href="#">View Project</a>
+      </div>
+      <div class="project-card">
+        <h3>🤖 AI Chat & Image Generator</h3>
+        <p>AI-powered chat & image app using OpenAI API.</p>
+        <a href="https://sibtain-maker.github.io/" target="_blank">View Portfolio</a>
+      </div>
     </div>
   </section>
 
-  <!-- Projects Section -->
-  <section class="glass fade-in">
-    <div>
-      <h2>Projects</h2>
-      <p>Check out some of my projects below.</p>
-      <button onclick="openModal()">View Project</button>
-    </div>
+  <!-- Contact -->
+  <section class="glass fade-in contact">
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:msibtain1236@gmail.com">msibtain1236@gmail.com</a></p>
+    <a href="https://sibtain-maker.github.io/" target="_blank">🌐 Portfolio</a>
+    <a href="https://github.com/sibtain-maker" target="_blank">💻 GitHub</a>
+    <a href="https://linkedin.com/in/sibtain-maker" target="_blank">🔗 LinkedIn</a>
   </section>
-
-  <!-- Contact Section -->
-  <section class="glass fade-in">
-    <div>
-      <h2>Contact</h2>
-      <p>Get in touch via email: <strong>me@example.com</strong></p>
-    </div>
-  </section>
-
-  <!-- Modal -->
-  <div id="projectModal" class="modal">
-    <div class="modal-content">
-      <span onclick="closeModal()">&times;</span>
-      <h2>Project Details</h2>
-      <p>This is where the project details will go.</p>
-    </div>
-  </div>
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
@@ -141,16 +132,11 @@
     // Particle.js config
     particlesJS("particles-js", {
       "particles": {
-        "number": { "value": 100 },
+        "number": { "value": 80 },
         "size": { "value": 3 },
         "move": { "speed": 2 },
         "line_linked": { "enable": true, "distance": 150, "color": "#ffffff" }
       }
-    });
-
-    // Loading screen
-    window.addEventListener("load", () => {
-      document.getElementById("loading").style.display = "none";
     });
 
     // Scroll animations
@@ -169,18 +155,6 @@
       });
     }
     initScrollAnimations();
-
-    // Modal functions
-    function openModal() {
-      document.getElementById("projectModal").style.display = "flex";
-    }
-    function closeModal() {
-      document.getElementById("projectModal").style.display = "none";
-    }
-    window.onclick = function(event) {
-      const modal = document.getElementById("projectModal");
-      if (event.target === modal) closeModal();
-    }
   </script>
 </body>
 </html>
